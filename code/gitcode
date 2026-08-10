@@ -1,0 +1,19 @@
+ChatGPT said:
+GitHub Commands — Short
+Command	Use
+git init	Create a new Git repository
+git clone <url>	Download a repository
+git status	Check file changes
+git add .	Add all changes
+git add <file>	Add a specific file
+git commit -m "message"	Save changes
+git push	Upload changes to GitHub
+git pull	Download latest changes
+git branch	View branches
+git checkout <branch>	Switch branches
+git checkout -b <name>	Create and switch to a branch
+git merge <branch>	Merge a branch
+git log	View commit history
+git remote -v	View connected GitHub repository
+git remote add origin <url>	Connect local project to GitHub
+

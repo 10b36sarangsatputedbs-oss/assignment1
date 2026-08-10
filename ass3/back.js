@@ -1,113 +1,87 @@
 import { useState } from "react";
 
 function App() {
-    const [students, setStudents] = useState([]);
+  const [students, setStudents] = useState([]);
+  const [name, setName] = useState("");
+  const [marks, setMarks] = useState([0, 0, 0, 0]);
 
-    const [name, setName] = useState("");
-    const [chem, setChem] = useState("");
-    const [phy, setPhy] = useState("");
-    const [eng, setEng] = useState("");
-    const [maths, setMaths] = useState("");
+  function addStudent() {
+    let percentage = marks.reduce((a, b) => a + Number(b), 0) / 4;
 
-    function addStudent() {
-        let total =
-            Number(chem) +
-            Number(phy) +
-            Number(eng) +
-            Number(maths);
+    setStudents([
+      ...students,
+      { name, marks, percentage }
+    ]);
 
-        let percentage = total / 4;
+    setName("");
+    setMarks([0, 0, 0, 0]);
+  }
 
-        let student = {
-            name: name,
-            chem: chem,
-            phy: phy,
-            eng: eng,
-            maths: maths,
-            percentage: percentage
-        };
+  return (
+    <div>
+      <h1>Student Marks</h1>
 
-        setStudents([...students, student]);
+      <input
+        placeholder="Name"
+        value={name}
+        onChange={e => setName(e.target.value)}
+      />
 
-        setName("");
-        setChem("");
-        setPhy("");
-        setEng("");
-        setMaths("");
-    }
+      <input
+        type="number"
+        placeholder="Chemistry"
+        onChange={e => marks[0] = e.target.value}
+      />
 
-    return (
-        <div>
-            <h1>Student Marks</h1>
+      <input
+        type="number"
+        placeholder="Physics"
+        onChange={e => marks[1] = e.target.value}
+      />
 
-            <input
-                type="text"
-                placeholder="Student Name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-            />
+      <input
+        type="number"
+        placeholder="English"
+        onChange={e => marks[2] = e.target.value}
+      />
 
-            <input
-                type="number"
-                placeholder="Chemistry"
-                value={chem}
-                onChange={(e) => setChem(e.target.value)}
-            />
+      <input
+        type="number"
+        placeholder="Maths"
+        onChange={e => marks[3] = e.target.value}
+      />
 
-            <input
-                type="number"
-                placeholder="Physics"
-                value={phy}
-                onChange={(e) => setPhy(e.target.value)}
-            />
+      <button onClick={addStudent}>Add Student</button>
 
-            <input
-                type="number"
-                placeholder="English"
-                value={eng}
-                onChange={(e) => setEng(e.target.value)}
-            />
+      <h2>Student Details</h2>
 
-            <input
-                type="number"
-                placeholder="Maths"
-                value={maths}
-                onChange={(e) => setMaths(e.target.value)}
-            />
+      <table border="1">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Chemistry</th>
+            <th>Physics</th>
+            <th>English</th>
+            <th>Maths</th>
+            <th>Percentage</th>
+          </tr>
+        </thead>
 
-            <button onClick={addStudent}>
-                Add Student
-            </button>
-
-            <h2>Student Details</h2>
-
-            <table border="1">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Chemistry</th>
-                        <th>Physics</th>
-                        <th>English</th>
-                        <th>Maths</th>
-                        <th>Percentage</th>
-                    </tr>
-                </thead>
-
-                <tbody>
-                    {students.map((student, index) => (
-                        <tr key={index}>
-                            <td>{student.name}</td>
-                            <td>{student.chem}</td>
-                            <td>{student.phy}</td>
-                            <td>{student.eng}</td>
-                            <td>{student.maths}</td>
-                            <td>{student.percentage}%</td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
-        </div>
-    );
+        <tbody>
+          {students.map((s, i) => (
+            <tr key={i}>
+              <td>{s.name}</td>
+              <td>{s.marks[0]}</td>
+              <td>{s.marks[1]}</td>
+              <td>{s.marks[2]}</td>
+              <td>{s.marks[3]}</td>
+              <td>{s.percentage}%</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
 }
 
 export default App;

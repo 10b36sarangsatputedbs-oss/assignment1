@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Marks</title>
+</head>
+<body>
+
+    <h1>Student Marks</h1>
+
+    <input type="text" id="name" placeholder="Student Name">
+    <input type="number" id="chem" placeholder="Chemistry">
+    <input type="number" id="phy" placeholder="Physics">
+    <input type="number" id="eng" placeholder="English">
+    <input type="number" id="maths" placeholder="Maths">
+
+    <button onclick="addStudent()">Add Student</button>
+
+    <h2>Student Details</h2>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Chemistry</th>
+                <th>Physics</th>
+                <th>English</th>
+                <th>Maths</th>
+                <th>Percentage</th>
+            </tr>
+        </thead>
+
+        <tbody id="studentTable">
+        </tbody>
+    </table>
+
+    <script>
+        function addStudent() {
+            let name = document.getElementById("name").value;
+            let chem = Number(document.getElementById("chem").value);
+            let phy = Number(document.getElementById("phy").value);
+            let eng = Number(document.getElementById("eng").value);
+            let maths = Number(document.getElementById("maths").value);
+
+            let total = chem + phy + eng + maths;
+            let percentage = total / 4;
+
+            let table = document.getElementById("studentTable");
+
+            let row = table.insertRow();
+
+            row.insertCell(0).innerHTML = name;
+            row.insertCell(1).innerHTML = chem;
+            row.insertCell(2).innerHTML = phy;
+            row.insertCell(3).innerHTML = eng;
+            row.insertCell(4).innerHTML = maths;
+            row.insertCell(5).innerHTML = percentage + "%";
+        }
+    </script>
+
+</body>
+</html>

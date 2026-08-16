@@ -1,55 +1,43 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Result</title>
-</head>
-<body>
+let highestMarks = 0;
+let topperName = "";
 
-    <h2>Student Result System</h2>
+function addStudent() {
 
-    <label>Name:</label>
-    <input type="text" id="name"><br><br>
+    let name = document.getElementById("name").value;
+    let phy = Number(document.getElementById("phy").value);
+    let chem = Number(document.getElementById("chem").value);
+    let math = Number(document.getElementById("math").value);
+    let bio = Number(document.getElementById("bio").value);
 
-    <label>Physics:</label>
-    <input type="number" id="phy"><br><br>
+    let total = phy + chem + math + bio;
+    let percentage = total / 4;
 
-    <label>Chemistry:</label>
-    <input type="number" id="chem"><br><br>
+    let table = document.getElementById("resultTable");
 
-    <label>Maths:</label>
-    <input type="number" id="math"><br><br>
+    table.innerHTML += `
+    <tr>
+        <td>${name}</td>
+        <td>${phy}</td>
+        <td>${chem}</td>
+        <td>${math}</td>
+        <td>${bio}</td>
+        <td>${total}</td>
+        <td>${percentage.toFixed(2)}%</td>
+    </tr>
+    `;
 
-    <label>Biology:</label>
-    <input type="number" id="bio"><br><br>
+    if (total > highestMarks) {
+        highestMarks = total;
+        topperName = name;
+    }
 
-    <button onclick="addStudent()">Submit</button>
+    document.getElementById("topper").innerHTML =
+        "Topper : " + topperName + " (" + highestMarks + " Marks)";
 
-    <h2>Student Results</h2>
-
-    <table border="1" cellpadding="10">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Physics</th>
-                <th>Chemistry</th>
-                <th>Maths</th>
-                <th>Biology</th>
-                <th>Total</th>
-                <th>Percentage</th>
-            </tr>
-        </thead>
-
-        <tbody id="resultTable">
-
-        </tbody>
-    </table>
-
-    <h2 id="topper">Topper : None</h2>
-
-    <!-- Link JavaScript File -->
-    <script src="student.js"></script>
-
-</body>
-</html>
+    // Clear input fields
+    document.getElementById("name").value = "";
+    document.getElementById("phy").value = "";
+    document.getElementById("chem").value = "";
+    document.getElementById("math").value = "";
+    document.getElementById("bio").value = "";
+}

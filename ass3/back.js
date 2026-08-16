@@ -1,87 +1,55 @@
-import { useState } from "react";
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Result</title>
+</head>
+<body>
 
-function App() {
-  const [students, setStudents] = useState([]);
-  const [name, setName] = useState("");
-  const [marks, setMarks] = useState([0, 0, 0, 0]);
+    <h2>Student Result System</h2>
 
-  function addStudent() {
-    let percentage = marks.reduce((a, b) => a + Number(b), 0) / 4;
+    <label>Name:</label>
+    <input type="text" id="name"><br><br>
 
-    setStudents([
-      ...students,
-      { name, marks, percentage }
-    ]);
+    <label>Physics:</label>
+    <input type="number" id="phy"><br><br>
 
-    setName("");
-    setMarks([0, 0, 0, 0]);
-  }
+    <label>Chemistry:</label>
+    <input type="number" id="chem"><br><br>
 
-  return (
-    <div>
-      <h1>Student Marks</h1>
+    <label>Maths:</label>
+    <input type="number" id="math"><br><br>
 
-      <input
-        placeholder="Name"
-        value={name}
-        onChange={e => setName(e.target.value)}
-      />
+    <label>Biology:</label>
+    <input type="number" id="bio"><br><br>
 
-      <input
-        type="number"
-        placeholder="Chemistry"
-        onChange={e => marks[0] = e.target.value}
-      />
+    <button onclick="addStudent()">Submit</button>
 
-      <input
-        type="number"
-        placeholder="Physics"
-        onChange={e => marks[1] = e.target.value}
-      />
+    <h2>Student Results</h2>
 
-      <input
-        type="number"
-        placeholder="English"
-        onChange={e => marks[2] = e.target.value}
-      />
-
-      <input
-        type="number"
-        placeholder="Maths"
-        onChange={e => marks[3] = e.target.value}
-      />
-
-      <button onClick={addStudent}>Add Student</button>
-
-      <h2>Student Details</h2>
-
-      <table border="1">
+    <table border="1" cellpadding="10">
         <thead>
-          <tr>
-            <th>Name</th>
-            <th>Chemistry</th>
-            <th>Physics</th>
-            <th>English</th>
-            <th>Maths</th>
-            <th>Percentage</th>
-          </tr>
+            <tr>
+                <th>Name</th>
+                <th>Physics</th>
+                <th>Chemistry</th>
+                <th>Maths</th>
+                <th>Biology</th>
+                <th>Total</th>
+                <th>Percentage</th>
+            </tr>
         </thead>
 
-        <tbody>
-          {students.map((s, i) => (
-            <tr key={i}>
-              <td>{s.name}</td>
-              <td>{s.marks[0]}</td>
-              <td>{s.marks[1]}</td>
-              <td>{s.marks[2]}</td>
-              <td>{s.marks[3]}</td>
-              <td>{s.percentage}%</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-  );
-}
+        <tbody id="resultTable">
 
-export default App;
+        </tbody>
+    </table>
+
+    <h2 id="topper">Topper : None</h2>
+
+    <!-- Link JavaScript File -->
+    <script src="student.js"></script>
+
+</body>
+</html>

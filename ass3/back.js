@@ -1,43 +1,87 @@
-let highestMarks = 0;
-let topperName = "";
+import { useState } from "react";
 
-function addStudent() {
+function App() {
+  const [students, setStudents] = useState([]);
+  const [name, setName] = useState("");
+  const [marks, setMarks] = useState([0, 0, 0, 0]);
 
-    let name = document.getElementById("name").value;
-    let phy = Number(document.getElementById("phy").value);
-    let chem = Number(document.getElementById("chem").value);
-    let math = Number(document.getElementById("math").value);
-    let bio = Number(document.getElementById("bio").value);
+  function addStudent() {
+    let percentage = marks.reduce((a, b) => a + Number(b), 0) / 4;
 
-    let total = phy + chem + math + bio;
-    let percentage = total / 4;
+    setStudents([
+      ...students,
+      { name, marks, percentage }
+    ]);
 
-    let table = document.getElementById("resultTable");
+    setName("");
+    setMarks([0, 0, 0, 0]);
+  }
 
-    table.innerHTML += `
-    <tr>
-        <td>${name}</td>
-        <td>${phy}</td>
-        <td>${chem}</td>
-        <td>${math}</td>
-        <td>${bio}</td>
-        <td>${total}</td>
-        <td>${percentage.toFixed(2)}%</td>
-    </tr>
-    `;
+  return (
+    <div>
+      <h1>Student Marks</h1>
 
-    if (total > highestMarks) {
-        highestMarks = total;
-        topperName = name;
-    }
+      <input
+        placeholder="Name"
+        value={name}
+        onChange={e => setName(e.target.value)}
+      />
 
-    document.getElementById("topper").innerHTML =
-        "Topper : " + topperName + " (" + highestMarks + " Marks)";
+      <input
+        type="number"
+        placeholder="Chemistry"
+        onChange={e => marks[0] = e.target.value}
+      />
 
-    // Clear input fields
-    document.getElementById("name").value = "";
-    document.getElementById("phy").value = "";
-    document.getElementById("chem").value = "";
-    document.getElementById("math").value = "";
-    document.getElementById("bio").value = "";
+      <input
+        type="number"
+        placeholder="Physics"
+        onChange={e => marks[1] = e.target.value}
+      />
+
+      <input
+        type="number"
+        placeholder="English"
+        onChange={e => marks[2] = e.target.value}
+      />
+
+      <input
+        type="number"
+        placeholder="Maths"
+        onChange={e => marks[3] = e.target.value}
+      />
+
+      <button onClick={addStudent}>Add Student</button>
+
+      <h2>Student Details</h2>
+
+      <table border="1">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Chemistry</th>
+            <th>Physics</th>
+            <th>English</th>
+            <th>Maths</th>
+            <th>Percentage</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {students.map((s, i) => (
+            <tr key={i}>
+              <td>{s.name}</td>
+              <td>{s.marks[0]}</td>
+              <td>{s.marks[1]}</td>
+              <td>{s.marks[2]}</td>
+              <td>{s.marks[3]}</td>
+              <td>{s.percentage}%</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
 }
+
+export default App;

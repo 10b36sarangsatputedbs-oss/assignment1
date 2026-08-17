@@ -1,87 +1,109 @@
-import { useState } from "react";
+// Array to store all students
+let students = [];
 
-function App() {
-  const [students, setStudents] = useState([]);
-  const [name, setName] = useState("");
-  const [marks, setMarks] = useState([0, 0, 0, 0]);
+function addStudent() {
 
-  function addStudent() {
-    let percentage = marks.reduce((a, b) => a + Number(b), 0) / 4;
+    // Get values from HTML
+    let name = document.getElementById("name").value.trim();
 
-    setStudents([
-      ...students,
-      { name, marks, percentage }
-    ]);
+    let physics = Number(document.getElementById("physics").value);
+    let chemistry = Number(document.getElementById("chemistry").value);
+    let maths = Number(document.getElementById("maths").value);
+    let biology = Number(document.getElementById("biology").value);
 
-    setName("");
-    setMarks([0, 0, 0, 0]);
-  }
+    // Check student name
+    if (name === "") {
+        alert("Please enter student name.");
+        return;
+    }
 
-  return (
-    <div>
-      <h1>Student Marks</h1>
+    // Check marks
+    if (
+        physics < 0 || physics > 100 ||
+        chemistry < 0 || chemistry > 100 ||
+        maths < 0 || maths > 100 ||
+        biology < 0 || biology > 100
+    ) {
+        alert("Marks must be between 0 and 100.");
+        return;
+    }
 
-      <input
-        placeholder="Name"
-        value={name}
-        onChange={e => setName(e.target.value)}
-      />
+    // Calculate percentage
+    let total = physics + chemistry + maths + biology;
+    let percentage = total / 4;
 
-      <input
-        type="number"
-        placeholder="Chemistry"
-        onChange={e => marks[0] = e.target.value}
-      />
+    // Create student object
+    let student = {
+        name: name,
+        physics: physics,
+        chemistry: chemistry,
+        maths: maths,
+        biology: biology,
+        percentage: percentage
+    };
 
-      <input
-        type="number"
-        placeholder="Physics"
-        onChange={e => marks[1] = e.target.value}
-      />
+    // Add student to array
+    students.push(student);
 
-      <input
-        type="number"
-        placeholder="English"
-        onChange={e => marks[2] = e.target.value}
-      />
+    // Display students
+    displayStudents();
 
-      <input
-        type="number"
-        placeholder="Maths"
-        onChange={e => marks[3] = e.target.value}
-      />
+    // Find topper
+    findTopper();
 
-      <button onClick={addStudent}>Add Student</button>
-
-      <h2>Student Details</h2>
-
-      <table border="1">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Chemistry</th>
-            <th>Physics</th>
-            <th>English</th>
-            <th>Maths</th>
-            <th>Percentage</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          {students.map((s, i) => (
-            <tr key={i}>
-              <td>{s.name}</td>
-              <td>{s.marks[0]}</td>
-              <td>{s.marks[1]}</td>
-              <td>{s.marks[2]}</td>
-              <td>{s.marks[3]}</td>
-              <td>{s.percentage}%</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-  );
+    // Clear input fields
+    document.getElementById("name").value = "";
+    document.getElementById("physics").value = "";
+    document.getElementById("chemistry").value = "";
+    document.getElementById("maths").value = "";
+    document.getElementById("biology").value = "";
 }
 
-export default App;
+
+// Display all students in table
+function displayStudents() {
+
+    let table = document.getElementById("studentTable");
+
+    // Clear existing table
+    table.innerHTML = "";
+
+    students.forEach(function(student) {
+
+        let row = document.createElement("tr");
+
+        row.innerHTML = `
+            <td>${student.name}</td>
+            <td>${student.physics}</td>
+            <td>${student.chemistry}</td>
+            <td>${student.maths}</td>
+            <td>${student.biology}</td>
+            <td>${student.percentage.toFixed(2)}%</td>
+        `;
+
+        table.appendChild(row);
+    });
+}
+
+
+// Find student with highest percentage
+function findTopper() {
+
+    if (students.length === 0) {
+        document.getElementById("topper").innerHTML = "";
+        return;
+    }
+
+    let topper = students[0];
+
+    for (let i = 1; i < students.length; i++) {
+
+        if (students[i].percentage > topper.percentage) {
+            topper = students[i];
+        }
+    }
+
+    document.getElementById("topper").innerHTML =
+        "Topper: " + topper.name +
+        " (" + topper.percentage.toFixed(2) + "%)";
+}

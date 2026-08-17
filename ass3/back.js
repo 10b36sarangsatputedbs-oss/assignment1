@@ -1,9 +1,9 @@
-// Array to store all students
+
 let students = [];
 
 function addStudent() {
 
-    // Get values from HTML
+
     let name = document.getElementById("name").value.trim();
 
     let physics = Number(document.getElementById("physics").value);
@@ -11,13 +11,13 @@ function addStudent() {
     let maths = Number(document.getElementById("maths").value);
     let biology = Number(document.getElementById("biology").value);
 
-    // Check student name
+    
     if (name === "") {
         alert("Please enter student name.");
         return;
     }
 
-    // Check marks
+
     if (
         physics < 0 || physics > 100 ||
         chemistry < 0 || chemistry > 100 ||
@@ -28,11 +28,11 @@ function addStudent() {
         return;
     }
 
-    // Calculate percentage
+
     let total = physics + chemistry + maths + biology;
     let percentage = total / 4;
 
-    // Create student object
+   
     let student = {
         name: name,
         physics: physics,
@@ -42,16 +42,14 @@ function addStudent() {
         percentage: percentage
     };
 
-    // Add student to array
     students.push(student);
 
-    // Display students
+  
     displayStudents();
 
-    // Find topper
     findTopper();
 
-    // Clear input fields
+ 
     document.getElementById("name").value = "";
     document.getElementById("physics").value = "";
     document.getElementById("chemistry").value = "";
@@ -60,12 +58,12 @@ function addStudent() {
 }
 
 
-// Display all students in table
+
 function displayStudents() {
 
     let table = document.getElementById("studentTable");
 
-    // Clear existing table
+
     table.innerHTML = "";
 
     students.forEach(function(student) {
@@ -86,7 +84,7 @@ function displayStudents() {
 }
 
 
-// Find student with highest percentage
+
 function findTopper() {
 
     if (students.length === 0) {
